@@ -1,6 +1,9 @@
 alias bb='busybox'
 alias tmux='tmux new -s 1'
 alias g='git'
+alias cex='chmod +x'
+alias tls='\tmux ls'
+alias tat='\tmux attach'
 mkcd ()
 {
     mkdir -p "$1" && cd "$1"
