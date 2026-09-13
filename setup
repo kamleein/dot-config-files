@@ -10,3 +10,10 @@ ln -sf ~/dot-config-files/git/gitconfig ~/.gitconfig
 ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
 
 echo "Dotfiles linked!"
+
+# Source .tmux.conf and .bashrc
+\tmux source-file ~/.tmux.conf
+
+source ~/.bashrc
+
+echo "Files sourced"

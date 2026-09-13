@@ -4,6 +4,8 @@ alias g='git'
 alias cex='chmod +x'
 alias tls='\tmux ls'
 alias tat='\tmux attach'
+alias tsrc='\tmux source-file ~/.tmux.conf'
+alias bsrc='source ~/.bashrc'
 mkcd ()
 {
     mkdir -p "$1" && cd "$1"
