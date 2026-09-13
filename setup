@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Description: Link dot-config-files to home directory
+
+ln -sf ~/dot-config-files/bashrc/bashrc ~/.bashrc
+ln -sf ~/dot-config-files/bashrc/bash_aliases ~/.bash_aliases
+ln -sf ~/dot-config-files/vimrc/vimrc ~/.vimrc
+ln -sf ~/dot-config-files/tmux/tmux.conf ~/.tmux.conf
+ln -sf ~/dot-config-files/git/gitconfig ~/.gitconfig
+ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
+
+echo "Dotfiles linked!"

@@ -1,0 +1,23 @@
+alias bb='busybox'
+alias tmux='tmux new -s 1'
+alias g='git'
+mkcd ()
+{
+    mkdir -p "$1" && cd "$1"
+}
+mvcd ()
+{
+    mv "$1" "$2" && cd "$2"
+}
+mvnd ()
+{
+    mkdir -p "$2" && mv "$1" "$2/" && cd "$2"
+}
+cpcd ()
+{
+    cp -r "$1" "$2" && cd "$2"
+}
+cpnd ()
+{
+    mkdir -p "$2" && cp -r "$1" "$2/" && cd "$2"
+}

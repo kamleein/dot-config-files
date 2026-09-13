@@ -1,0 +1,95 @@
+# Podman
+--------
+podman ps -> List running containers.
+podman ps -a -> List all containers.
+podman ps -q -> Show only container IDs.
+podman run -it --rm ubuntu bash
+Mount a Local Folder (Volume)
+-----------------------------
+podman run -it --rm -v /home/user/projects:/src:Z ubuntu bash
+Pass Environment Variables
+--------------------------
+podman run -it --rm -e DB_HOST=127.0.0.1 -e ENV_MODE=development ubuntu bash
+Combining Everything Together
+-----------------------------
+podman run -it --rm \
+  -v ~/my_code:/app:Z \
+  -e APP_ENV=debug \
+  ubuntu bash
+Make the Folder Read-Only
+-------------------------
+podman run -it --rm \
+  -v ~/my_code:/app:ro,Z \
+  ubuntu bash
+Start podman
+------------
+podman start <CONTAINER ID>
+Connect to it's terminal
+------------------------
+podman exec -it <CONTAINER ID> /bin/sh
+
+# ssh
+=====
+ssh-keygen -t ed25519 -> Generate a kay pair
+# I had renamed ed25519 and ed25519.pub to ubuntu_key and ubuntu_key.pub respectively
+ssh-add ubuntu_key -> Adds the publick key to ssh agent.
+ssh-add -L -> View the added public key.
+ssh-coopy-id user@162.16.203.129
+# Since we modified the names of the keys, we use the below command
+ssh-copy-id -i ~/.ssh/ubuntu_key.pub user@162.16.203.129
+ssh -i /Users/kamalraman/.ssh/ubuntu_key 'user@172.16.203.129'
+or
+ssh ubuntu-vm
+# To use ssh ubuntu-vm, configure the below in ~/.ssh/config
+Host ubuntu-vm
+    HostName 172.16.203.129
+    User user
+    IdentityFile ~/.ssh/ubuntu_key
+
+Logs
+====
+jornalctl -f -> to tail the system log
+jornalctl -b -> log since last restart.
+systemctl status <service>
+
+Memory
+======
+free -h
+
+tmux
+====
+tmux source-file ~/.tmux.conf
+While inside tmux
+-----------------
+:source-file ~/.tmux.conf
+
+Git Commands
+============
+git clone  -> Clones a branch
+Go to perestapi folder
+git branch -> Displays branch
+git checkout 
+git status
+git diff
+git add 
+git commit -m "Change description"
+git branch
+git push
+git pull -> used to get the changes done by others
+git checkout main
+git pull (git fetch + git merge)
+git checkout branch
+git merge main
+git push
+
+git -c branch_name -> Creates a new branch, no need to use git checkout
+
+Aditya
+git checkout main
+git pull
+git branch
+git checkout branch
+git merge --no-ff --no-commit origin/main
+git commit -m "[NO-ID] [skip ci] merge from main" or git commit -m "[WorkItem ID] [skip ci] "
+git push
+Run full image build pipeline

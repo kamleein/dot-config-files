@@ -1,0 +1,19 @@
+[user]
+	name = Kamal Raman
+	email = kamleein@gmail.com
+
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	df = diff
+	lg = log
+	pl = pull
+	ps = push
+        sw = switch
+
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
