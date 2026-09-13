@@ -12,7 +12,9 @@ ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
 echo "Dotfiles linked!"
 
 # Source .tmux.conf and .bashrc
-\tmux source-file ~/.tmux.conf
+if \tls &>/dev/null; then
+    \tmux source-file ~/.tmux.conf
+fi
 
 source ~/.bashrc
 
