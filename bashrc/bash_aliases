@@ -1,7 +1,7 @@
 alias bb='busybox'
 alias tmux='tmux new -s 1'
 alias g='git'
-alias cex='chmod +x'
+alias cx='chmod +x'
 alias tls='\tmux ls'
 alias tat='\tmux attach'
 alias tsrc='\tmux source-file ~/.tmux.conf'

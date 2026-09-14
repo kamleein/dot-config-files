@@ -1,9 +1,18 @@
 #!/bin/bash
 
 # Description: Display dotfiles information
-#
-no_of_files=$(ls -lrt | wc -l)
-echo "Number of files in the current directory: ${no_of_files}"
+
+# Better to use find instead of ls. Refer: https://www.shellcheck.net/wiki/SC2012
+#no_of_files=$(ls -lrt | wc -l)
+# To include . files, use dotglob
+# Empty directories will store the literal character "*" as an element of the 
+# array making ${#no_of_files[@]} = 1. Hence, use nullglob.
+shopt -s dotglob nullblob
+no_of_files=(*)
+echo "Number of files in the current directory (including dot files): ${#no_of_files[@]}"
+shopt -u dotglob
+no_of_files=(*)
+echo "Number of files in the current directory (excluding dot files): ${#no_of_files[@]}"
 echo "${USER}"
 echo "$USER"
 echo "$HOME"
