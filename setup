@@ -6,12 +6,34 @@
 
 # Description: Link dot-config-files to home directory
 
-ln -sf ~/dot-config-files/bashrc/bashrc ~/.bashrc
-ln -sf ~/dot-config-files/bashrc/bash_aliases ~/.bash_aliases
-ln -sf ~/dot-config-files/vimrc/vimrc ~/.vimrc
-ln -sf ~/dot-config-files/tmux/tmux.conf ~/.tmux.conf
-ln -sf ~/dot-config-files/git/gitconfig ~/.gitconfig
-ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
+link_file() {
+    ln -sf "$1" "$2"
+    #echo "$1" "$2"
+}
+
+# Push the files in to an array
+dotfiles=(~/dot-config-files/bashrc/bashrc)
+dotfiles+=(~/dot-config-files/bashrc/bash_aliases)
+dotfiles+=(~/dot-config-files/vimrc/vimrc)
+dotfiles+=(~/dot-config-files/tmux/tmux.conf)
+dotfiles+=(~/dot-config-files/git/gitconfig)
+dotfiles+=(~/dot-config-files/commands/commands.txt)
+
+# Form the needed arguments and call the function link_file
+for item in "${dotfiles[@]}"; do
+    if [[ "${item##*/}" == "commands.txt" ]]; then
+        link_file "$item" "$HOME/${item##*/}"
+    else
+        link_file "$item" "$HOME/.${item##*/}"
+    fi
+done
+
+#ln -sf ~/dot-config-files/bashrc/bashrc ~/.bashrc
+#ln -sf ~/dot-config-files/bashrc/bash_aliases ~/.bash_aliases
+#ln -sf ~/dot-config-files/vimrc/vimrc ~/.vimrc
+#ln -sf ~/dot-config-files/tmux/tmux.conf ~/.tmux.conf
+#ln -sf ~/dot-config-files/git/gitconfig ~/.gitconfig
+#ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
 
 echo "Dotfiles linked!"
 
