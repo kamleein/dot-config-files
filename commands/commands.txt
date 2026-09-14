@@ -63,6 +63,13 @@ While inside tmux
 -----------------
 :source-file ~/.tmux.conf
 
+Get IP address
+==============
+ip=$(hostname -I) && echo "${ip%% *}"
+hostname -I | awk 'print {$1}'
+hostname -I | cut -d' ' -f1
+
+
 Git Commands
 ============
 git clone  -> Clones a branch
