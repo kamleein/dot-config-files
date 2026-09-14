@@ -6,42 +6,53 @@
 
 # Description: Link dot-config-files to home directory
 
+# Prevent running as a separate process
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    echo "Error: Script must be sourced, not executed directly."
+    echo "Run: source ${0}"
+    exit 1
+fi
+
 link_file() {
-    ln -sf "$1" "$2"
-    #echo "$1" "$2"
+    local src="$1"
+    local dest="$2"
+
+    if [[ -f "$src" ]]; then
+        ln -sf "$src" "$dest"
+        echo "Linked: $dest -> $src"
+    else
+        echo "Warning: Source file $src does not exist. Skipping."
+    fi
 }
 
-# Push the files in to an array
-dotfiles=(~/dot-config-files/bashrc/bashrc)
-dotfiles+=(~/dot-config-files/bashrc/bash_aliases)
-dotfiles+=(~/dot-config-files/vimrc/vimrc)
-dotfiles+=(~/dot-config-files/tmux/tmux.conf)
-dotfiles+=(~/dot-config-files/git/gitconfig)
-dotfiles+=(~/dot-config-files/commands/commands.txt)
-
+dotfiles=(
+    "$HOME/dot-config-files/bashrc/bashrc"
+    "$HOME/dot-config-files/bashrc/bash_aliases"
+    "$HOME/dot-config-files/vimrc/vimrc"
+    "$HOME/dot-config-files/tmux/tmux.conf"
+    "$HOME/dot-config-files/git/gitconfig"
+    "$HOME/dot-config-files/commands/commands.txt"
+)
 # Form the needed arguments and call the function link_file
 for item in "${dotfiles[@]}"; do
-    if [[ "${item##*/}" == "commands.txt" ]]; then
-        link_file "$item" "$HOME/${item##*/}"
+    filename="${item##*/}"
+    
+    if [[ "$filename" == "commands.txt" ]]; then
+        link_file "$item" "$HOME/$filename"
     else
-        link_file "$item" "$HOME/.${item##*/}"
+        link_file "$item" "$HOME/.$filename"
     fi
 done
-
-#ln -sf ~/dot-config-files/bashrc/bashrc ~/.bashrc
-#ln -sf ~/dot-config-files/bashrc/bash_aliases ~/.bash_aliases
-#ln -sf ~/dot-config-files/vimrc/vimrc ~/.vimrc
-#ln -sf ~/dot-config-files/tmux/tmux.conf ~/.tmux.conf
-#ln -sf ~/dot-config-files/git/gitconfig ~/.gitconfig
-#ln -sf ~/dot-config-files/commands/commands.txt ~/commands.txt
 
 echo "Dotfiles linked!"
 
 # Source .tmux.conf and .bashrc
-if \tls &>/dev/null; then
-    \tmux source-file ~/.tmux.conf
+if command -v tmux &>/dev/null && tmux info &>/dev/null; then
+    tmux source-file "$HOME/.tmux.conf"
+    echo "Tmux config reloaded."
 fi
 
-source ~/.bashrc
-
-echo "Files sourced"
+if [[ -f "$HOME/.bashrc" ]]; then
+    source "$HOME/.bashrc"
+    echo "Bash configuration reloaded."
+fi
