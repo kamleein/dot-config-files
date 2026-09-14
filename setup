@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Execute the script by sourcing it as . ./setup because ./setup will 
+# trigger a subprocess to source the dot files and it's benefits will 
+# not be available in the terminal where the bash script is executed.
+
 # Description: Link dot-config-files to home directory
 
 ln -sf ~/dot-config-files/bashrc/bashrc ~/.bashrc
