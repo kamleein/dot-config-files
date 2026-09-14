@@ -26,3 +26,7 @@ cpnd ()
 {
     mkdir -p "$2" && cp -r "$1" "$2/" && cd "$2"
 }
+path() {
+    local nl=$'\n'
+    echo "${PATH//:/$nl}"
+}

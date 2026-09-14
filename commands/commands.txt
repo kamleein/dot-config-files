@@ -1,32 +1,50 @@
 # Podman
---------
+========
 podman ps -> List running containers.
 podman ps -a -> List all containers.
 podman ps -q -> Show only container IDs.
 podman run -it --rm ubuntu bash
+
 Mount a Local Folder (Volume)
 -----------------------------
 podman run -it --rm -v /home/user/projects:/src:Z ubuntu bash
+
 Pass Environment Variables
 --------------------------
 podman run -it --rm -e DB_HOST=127.0.0.1 -e ENV_MODE=development ubuntu bash
+
 Combining Everything Together
 -----------------------------
 podman run -it --rm \
   -v ~/my_code:/app:Z \
   -e APP_ENV=debug \
   ubuntu bash
+
 Make the Folder Read-Only
 -------------------------
 podman run -it --rm \
   -v ~/my_code:/app:ro,Z \
   ubuntu bash
+
 Start podman
 ------------
 podman start <CONTAINER ID>
+
 Connect to it's terminal
 ------------------------
 podman exec -it <CONTAINER ID> /bin/sh
+
+Stop podman
+-----------
+podman stop -a
+podman stop <CONTAINER ID>
+
+Remove (Delete) containers
+--------------------------
+podman rm 724a7858786c 159b80343fb2         # <CONTAINER ID>
+podman rm -a                                # All containers.
+podman rm -fa                               7# Force delete
+
 
 # ssh
 =====
